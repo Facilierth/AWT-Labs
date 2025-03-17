@@ -1,0 +1,74 @@
+
+// was trying to do smth here, but wasnt what i wanted, maybe will try later
+@keyframes steam {
+    0% {
+        opacity: 0.2;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+}
+
+
+
+.coffee-item {
+    position: relative;
+    perspective: 1000px;
+
+    text-align: center;
+    height: 400px;
+
+    transition: transform 0.3s;
+
+    img {
+        margin: 0 auto;
+        position: relative;
+        padding: 10px;
+        width: 50%;
+        height: auto;
+        background: transparent;
+    }
+  
+    &__back,  &__front {
+        background-color:whitesmoke;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: $border_radius;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      text-align: center;
+      padding: 10px;
+      color: $text-color;
+      transition: all 1s linear;
+      box-shadow: $shadow;
+      .temperature {
+        width: 100%;
+        margin-top: -20px;
+        border-radius: $border_radius;
+        height: 30px;
+      }
+    }
+    &__back {
+      transform: rotateY(-180deg);
+      .temperature {
+        background: $gradient-cold;
+      }
+    }
+    &__front {
+        .temperature {
+            background: $gradient-hot;
+          }
+    }
+  
+    &:hover &__front {
+      transform: rotateY(180deg);
+    }
+  
+    &:hover &__back {
+      transform: rotateY(0deg);
+    }
+}
+  

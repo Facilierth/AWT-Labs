@@ -1,0 +1,25 @@
+$primary-color: #6e4c34; 
+$secondary-color: #d7d7d7; 
+$background_color: #fff;
+$text-color: #212121;
+$font-stack: 'Poppins', sans-serif;
+$border_radius: 30px;
+
+$coffee-colors: (
+    espresso: #4b2e1e,
+    latte: #d4a373,
+    foam: #f3e8e1,
+    iced: #4cbaff
+);
+
+$gradient-hot: linear-gradient(135deg, map-get($coffee-colors, espresso), map-get($coffee-colors, latte));
+$gradient-cold: linear-gradient(135deg, map-get($coffee-colors, iced),  map-get($coffee-colors, latte));
+
+$shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+
+$quotes: (
+    "Espresso yourself!",
+    "Life begins after coffee.",
+    "Coffee: a hug in a mug.",
+    "Keep calm and drink coffee."
+);

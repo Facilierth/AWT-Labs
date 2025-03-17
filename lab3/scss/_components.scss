@@ -1,0 +1,16 @@
+header {
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    margin: 10px;
+    color: $text-color;
+    border: 3px  solid $primary-color;
+    box-shadow: $shadow;
+    left: 0;
+}
+
+body {
+    font-family: $font-stack;
+    background-color: $background_color;
+}

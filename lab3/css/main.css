@@ -1,0 +1,87 @@
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: 400px;
+  gap: 60px;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  margin: 10px;
+  color: #212121;
+  border: 3px solid #6e4c34;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  left: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+.coffee-item {
+  position: relative;
+  perspective: 1000px;
+  text-align: center;
+  height: 400px;
+  transition: transform 0.3s;
+}
+.coffee-item img {
+  margin: 0 auto;
+  position: relative;
+  padding: 10px;
+  width: 50%;
+  height: auto;
+  background: transparent;
+}
+.coffee-item__back, .coffee-item__front {
+  background-color: whitesmoke;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  text-align: center;
+  padding: 10px;
+  color: #212121;
+  transition: all 1s linear;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.coffee-item__back .temperature, .coffee-item__front .temperature {
+  width: 100%;
+  margin-top: -20px;
+  border-radius: 30px;
+  height: 30px;
+}
+.coffee-item__back {
+  transform: rotateY(-180deg);
+}
+.coffee-item__back .temperature {
+  background: linear-gradient(135deg, #4cbaff, #d4a373);
+}
+.coffee-item__front .temperature {
+  background: linear-gradient(135deg, #4b2e1e, #d4a373);
+}
+.coffee-item:hover .coffee-item__front {
+  transform: rotateY(180deg);
+}
+.coffee-item:hover .coffee-item__back {
+  transform: rotateY(0deg);
+}
+
+/*# sourceMappingURL=main.css.map */

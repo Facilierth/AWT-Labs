@@ -1,0 +1,7 @@
+@mixin focus-ring {
+    &:focus {
+        outline: 3px solid map-get($coffee-colors, foam);
+    }
+}
+
+// todo for accessibility 
