@@ -1,6 +1,6 @@
 # 🌐 Advanced Web Technologies Lab Files ✨  
 
-Welcome to this ultra-fancy, borderline unnecessary, yet undeniably **✨aesthetic✨** repository.  
+Welcome to this ultra-fancy, undeniably **✨aesthetic✨** repository.  
 
 ## 📂 What's Inside?  
 Just a bunch of files for my **Advanced Web Technologies** lab. Nothing groundbreaking.
