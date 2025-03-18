@@ -32,18 +32,17 @@
     }
   
     &__back,  &__front {
-        background-color:whitesmoke;
+      @include outlined_box($standard_border_width);
       position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: $border_radius;
       -webkit-backface-visibility: hidden;
+      background: transparent;
       backface-visibility: hidden;
       text-align: center;
       padding: 10px;
       color: $text-color;
       transition: all 1s linear;
-      box-shadow: $shadow;
       .temperature {
         width: 100%;
         margin-top: -20px;

@@ -12,9 +12,10 @@
     </header>
     <main>
         <section class="menu">
-            <section class="coffee-item ">
+            <section class="coffee-item" tabindex="0" role="button" aria-labelledby="latte-title">
                 <div class="coffee-item__front card">
                     <div role="img" alt="hot" class="temperature"></div>
+                    <div class="frost"></div>
                     <img src="images/latte.webp" alt="Latte">
                     <h2>Classic Latte</h2>
                     <p>Rich espresso with steamed milk and a light foam.</p>
@@ -110,8 +111,45 @@
                     <p>Espresso shots topped with hot water.</p>
                 </div>
             </section>
-            
-
+            </section>
+            <div class="divider"></div>
+            <section class="quiz">
+                <h2>Not sure what to order?</h2>
+                <p>Take our quick quiz and find your perfect match!</p>
+                <form>
+                    <fieldset>
+                        <legend>How do you like your coffee?</legend>
+                        <label>
+                            <input type="radio" name="coffee-type">
+                            <span>Strong & bold</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="coffee-type">
+                            <span>Sweet & creamy</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="coffee-type">
+                            <span>Cold & refreshing</span>
+                        </label>
+                    </fieldset>
+                </form>
+            </section>
+            <div class="divider"></div>
+            <section class="brewing">
+                <h2>How to Brew the Perfect Coffee</h2>
+                <ul class="steps">
+                    <li class="step">Grind fresh coffee beans</li>
+                    <li class="step">Heat water to 90°C</li>
+                    <li class="step">Pour over slowly</li>
+                    <li class="step">Enjoy your coffee!</li>
+                </ul>
+                <div class="progress-bar"></div>
+            </section>
+                        
         </main>
+        <div class="divider"></div>
+        <footer>
+            <h5>Owned by two caffeine loving students</h5>
+        </footer>
 </body>
 </html>

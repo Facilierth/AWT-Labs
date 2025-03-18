@@ -1,7 +1,21 @@
 @mixin focus-ring {
     &:focus {
         outline: 3px solid map-get($coffee-colors, foam);
+        outline-offset: 3px;
     }
 }
 
 // todo for accessibility 
+
+@mixin outlined_box($width) {
+    border: $width $border;
+    border-radius: $border_radius;
+    box-shadow: inset $shadow, $shadow;
+}
+
+@mixin full_width_banner {
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+}

@@ -11,16 +11,39 @@ header {
   padding: 20px;
   margin: 0;
   width: 100%;
-  margin: 10px;
-  color: #212121;
   border: 3px solid #6e4c34;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-  left: 0;
+  border-radius: 30px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 5px rgba(0, 0, 0, 0.2);
+  top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  border-width: 0;
+  margin-top: -50px;
 }
 
 body {
   font-family: "Poppins", sans-serif;
   background-color: #fff;
+  color: #212121;
+}
+
+.divider {
+  border: 1px solid #6e4c34;
+  border-radius: 30px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 5px rgba(0, 0, 0, 0.2);
+  height: 5px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+h5 {
+  font-style: normal;
+  font-weight: normal;
 }
 
 @keyframes steam {
@@ -49,18 +72,19 @@ body {
   background: transparent;
 }
 .coffee-item__back, .coffee-item__front {
-  background-color: whitesmoke;
+  border: 3px solid #6e4c34;
+  border-radius: 30px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 5px rgba(0, 0, 0, 0.2);
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 30px;
   -webkit-backface-visibility: hidden;
+  background: transparent;
   backface-visibility: hidden;
   text-align: center;
   padding: 10px;
   color: #212121;
   transition: all 1s linear;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 .coffee-item__back .temperature, .coffee-item__front .temperature {
   width: 100%;
@@ -82,6 +106,101 @@ body {
 }
 .coffee-item:hover .coffee-item__back {
   transform: rotateY(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .coffee-item__wrapper {
+    transform: none !important;
+  }
+}
+.quiz {
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+}
+.quiz h2 {
+  font-size: 24px;
+}
+.quiz label {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 30px;
+  transition: all 0.3s ease-in-out;
+}
+.quiz label input {
+  display: none;
+}
+.quiz label span {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 2px solid #6e4c34;
+  border-radius: 30px;
+  transition: all 0.3s;
+}
+.quiz label span:hover {
+  background: #6e4c34;
+  color: white;
+}
+.quiz label input:checked + span {
+  background: #6e4c34;
+  color: white;
+}
+
+.brewing {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+}
+.brewing h2 {
+  font-size: 24px;
+}
+.brewing .steps {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+.brewing .steps .step {
+  font-size: 18px;
+  margin: 10px 0;
+  padding: 10px;
+  background: rgb(240.5, 240.5, 240.5);
+  border-radius: 30px;
+  display: inline-block;
+  width: 200px;
+}
+.brewing .progress-bar {
+  width: 100%;
+  height: 8px;
+  background: transparent;
+  position: relative;
+}
+.brewing .progress-bar:after {
+  content: "";
+  border: 1px solid #6e4c34;
+  border-radius: 30px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 0%;
+  left: 0;
+  height: 100%;
+  background-color: #4b2e1e;
+  animation: progress 10s infinite alternate;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
