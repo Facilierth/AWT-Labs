@@ -1,0 +1,9 @@
+@function get-random-debug-text($range) {
+
+    $random-number: random($range);
+    
+    $coffee-names: "Espresso", "Latte", "Cappuccino", "Mocha", "Macchiato", "Americano";
+    $coffee-choice: nth($coffee-names, ($random-number % length($coffee-names)) + 1);
+    
+    @return "#{$random-number}mg of caffeine from a #{$coffee-choice}";
+}

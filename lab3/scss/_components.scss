@@ -1,40 +1,15 @@
-.full_width_banner {
+
+
+.random-debug-text::before {
+    content: get-random-debug-text(1000);
+    display: block;
+    font-size: xx-small;
     text-align: center;
-    padding: 20px;
-    margin: 0;
     width: 100%;
+    margin: 10px;
+    animation: rainbow-text 2s infinite linear alternate;
 }
 
-
-header {
-    @extend .full_width_banner;
-    @include outlined_box($standard_border_width);
-    top: 0
-}
-
-footer {
-    @extend .full_width_banner;
-    border-width: 0;
-    margin-top: -50px;
-}
-
-body {
-    font-family: $font-stack;
-    background-color: $background_color;
-    color: $text-color;
-}
-
-.divider {
-    @include outlined_box(1px);
-    height: 5px;
-    margin-top: 80px;
-    margin-bottom: 80px;
-}
-
-h5 {
-    font-style: normal;
-    font-weight: normal;
-}
 
 
 .quiz {

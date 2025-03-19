@@ -11,6 +11,15 @@
     }
 }
 
+@keyframes rainbow-text {
+  0% { color: red; text-shadow: 0 0 5px red; opacity: 1; }
+  16% { color: orange; text-shadow: 0 0 5px orange; opacity: 0.8; }
+  33% { color: yellow; text-shadow: 0 0 5px yellow; opacity: 0.6; }
+  50% { color: green; text-shadow: 0 0 5px green; opacity: 0.8; }
+  66% { color: blue; text-shadow: 0 0 5px blue; opacity: 1; }
+  83% { color: indigo; text-shadow: 0 0 5px indigo; opacity: 0.8; }
+  100% { color: violet; text-shadow: 0 0 5px violet; opacity: 0.6; }
+}
 
 @keyframes progress {
   0% { width: 0%; }
