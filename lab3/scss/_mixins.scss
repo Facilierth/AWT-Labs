@@ -1,6 +1,0 @@
-@mixin outlined_box($width) {
-    border: $width $border;
-    border-radius: $border_radius;
-    box-shadow: inset $shadow, $shadow;
-}
-

@@ -1,9 +1,9 @@
-@import "variables";
-@import "anims";
-@import "functions";
-@import "mixins";
+@import "utilities/variables";
+@import "utilities/anims";
+@import "utilities/functions";
+@import "utilities/mixins";
 @import "layout";
-@import "components";
+@import "custom-components/components";
 
 @media (prefers-reduced-motion: reduce) {
     *,

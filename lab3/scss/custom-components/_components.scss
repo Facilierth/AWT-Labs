@@ -1,5 +1,3 @@
-
-
 .random-debug-text::before {
     content: get-random-debug-text(1000);
     display: block;
@@ -97,33 +95,6 @@
             animation: progress 10s infinite alternate;
         }
     }
-}
-
-@mixin flip-card {
-    perspective: 1000px;
-  
-    &__back,  &__front {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        -webkit-backface-visibility: hidden;
-        background: transparent;
-        backface-visibility: hidden;
-        transition: all 1s linear;
-    }
-
-    &:hover &__front {
-        transform: rotateY(180deg);
-    }
-
-    &:hover &__back {
-        transform: rotateY(0deg);
-    }
-
-    &__back {
-        transform: rotateY(-180deg);
-    }
-    transition: transform 0.3s;
 }
 
 .coffee-item {
