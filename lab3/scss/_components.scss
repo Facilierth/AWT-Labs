@@ -27,3 +27,161 @@ h5 {
     font-style: normal;
     font-weight: normal;
 }
+
+
+.quiz {
+    text-align: center;
+
+    bottom: 0;
+    width: 100%;
+
+    h2 {
+        font-size: 24px;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px;
+        border-radius: $border_radius;
+        transition: all 0.3s ease-in-out;
+
+        input {
+            display: none;
+        }
+
+        span {
+            display: inline-block;
+            padding: 10px 15px;
+            @include outlined_box(2px);
+            transition: all 0.3s;
+
+            &:hover {
+                background: $primary-color;
+                color: white;
+            }
+        }
+
+        input:checked + span {
+            background: $primary-color;
+            color: white;
+        }
+    }
+}
+
+.brewing {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .steps {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px 0;
+    vertical-align: middle;
+    height: fit-content;
+        .step {
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            background: lighten($secondary-color, 10%);
+            border-radius: $border_radius;
+            display: inline-block;
+            width: 200px;
+        }
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: transparent;
+        position: relative;
+
+        &:after {
+            content: "";
+            @include outlined_box(1px);
+            position: absolute;
+            width: 0%;
+            left:0;
+            height: 100%;
+            background-color: map-get($map: $coffee-colors, $key: espresso);
+            animation: progress 10s infinite alternate;
+        }
+    }
+}
+
+@mixin flip-card {
+    perspective: 1000px;
+  
+    &__back,  &__front {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        background: transparent;
+        backface-visibility: hidden;
+        transition: all 1s linear;
+    }
+
+    &:hover &__front {
+        transform: rotateY(180deg);
+    }
+
+    &:hover &__back {
+        transform: rotateY(0deg);
+    }
+
+    &__back {
+        transform: rotateY(-180deg);
+    }
+    transition: transform 0.3s;
+}
+
+.coffee-item {
+    @include flip-card;
+    position: relative;
+    text-align: center;
+    height: 400px;
+
+    img {
+        margin: 0 auto;
+        position: relative;
+        padding: 10px;
+        width: 50%;
+        height: auto;
+        background: transparent;
+    }
+  
+    &__back,  &__front {
+      @include outlined_box($standard_border_width);
+     
+      text-align: center;
+      padding: 10px;
+      color: $text-color;
+
+      .temperature {
+        width: 100%;
+        margin-top: -20px;
+        border-radius: $border_radius;
+        height: 30px;
+      }
+    }
+    &__back {
+      .temperature {
+        background: $gradient-cold;
+      }
+    }
+    &__front {
+        .temperature {
+            background: $gradient-hot;
+          }
+    }
+
+}
+  

@@ -12,62 +12,7 @@
 }
 
 
-
-.coffee-item {
-    position: relative;
-    perspective: 1000px;
-
-    text-align: center;
-    height: 400px;
-
-    transition: transform 0.3s;
-
-    img {
-        margin: 0 auto;
-        position: relative;
-        padding: 10px;
-        width: 50%;
-        height: auto;
-        background: transparent;
-    }
-  
-    &__back,  &__front {
-      @include outlined_box($standard_border_width);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      background: transparent;
-      backface-visibility: hidden;
-      text-align: center;
-      padding: 10px;
-      color: $text-color;
-      transition: all 1s linear;
-      .temperature {
-        width: 100%;
-        margin-top: -20px;
-        border-radius: $border_radius;
-        height: 30px;
-      }
-    }
-    &__back {
-      transform: rotateY(-180deg);
-      .temperature {
-        background: $gradient-cold;
-      }
-    }
-    &__front {
-        .temperature {
-            background: $gradient-hot;
-          }
-    }
-  
-    &:hover &__front {
-      transform: rotateY(180deg);
-    }
-  
-    &:hover &__back {
-      transform: rotateY(0deg);
-    }
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 100%; }
 }
-  

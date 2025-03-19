@@ -1,125 +1,17 @@
 @import "variables";
+@import "anims";
+
 @import "mixins";
 @import "layout";
 @import "components";
-@import "anims";
 
 @media (prefers-reduced-motion: reduce) {
-* {
-    animation: none !important;
-    transition: none !important;
-}
-
-.coffee-item__wrapper {
-    transform: none !important;
-}
-}
-
-
-@mixin button-style($bg-color, $text-color) {
-    background: $bg-color;
-    color: $text-color;
-    border-radius: $border_radius;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        background: darken($bg-color, 10%);
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
     }
-}
-
-.quiz {
-    text-align: center;
-
-    bottom: 0;
-    width: 100%;
-
-    h2 {
-        font-size: 24px;
-    }
-
-    label {
-        display: block;
-        margin: 10px 0;
-        cursor: pointer;
-        font-size: 18px;
-        padding: 10px;
-        border-radius: $border_radius;
-        transition: all 0.3s ease-in-out;
-
-        input {
-            display: none;
-        }
-
-        span {
-            display: inline-block;
-            padding: 10px 15px;
-            border: 2px solid $primary-color;
-            border-radius: $border_radius;
-            transition: all 0.3s;
-
-            &:hover {
-                background: $primary-color;
-                color: white;
-            }
-        }
-
-        input:checked + span {
-            background: $primary-color;
-            color: white;
-        }
-    }
-}
-
-.brewing {
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px;
-
-    h2 {
-        font-size: 24px;
-    }
-
-    .steps {
-        list-style-type: none;
-        padding: 0;
-        margin: 20px 0;
-
-        .step {
-            font-size: 18px;
-            margin: 10px 0;
-            padding: 10px;
-            background: lighten($secondary-color, 10%);
-            border-radius: $border_radius;
-            display: inline-block;
-            width: 200px;
-        }
-    }
-
-    .progress-bar {
-        width: 100%;
-        height: 8px;
-        background: transparent;
-        position: relative;
-
-        &:after {
-            content: "";
-            @include outlined_box(1px);
-            position: absolute;
-            width: 0%;
-            left:0;
-            height: 100%;
-            background-color: map-get($map: $coffee-colors, $key: espresso);
-            animation: progress 10s infinite alternate;
-        }
-    }
-}
-
-@keyframes progress {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-
+  }
+  
