@@ -13,7 +13,7 @@ $coffee-colors: (
     iced: #4cbaff
 );
 
-$gradient-hot: linear-gradient(135deg, map-get($coffee-colors, espresso), map-get($coffee-colors, latte));
+$gradient-hot: linear-gradient(135deg, map-get($coffee-colors, espresso), #b65e35);
 $gradient-cold: linear-gradient(135deg, map-get($coffee-colors, iced),  map-get($coffee-colors, latte));
 
 $shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);

@@ -10,18 +10,3 @@
     margin: 0;
     width: 100%;
 }
-
-@mixin button-style($bg-color, $text-color) {
-    background: $bg-color;
-    color: $text-color;
-    border-radius: $border_radius;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        background: darken($bg-color, 10%);
-    }
-}

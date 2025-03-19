@@ -1,11 +1,19 @@
+.full_width_banner {
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+}
+
+
 header {
-    @include full_width_banner;
+    @extend .full_width_banner;
     @include outlined_box($standard_border_width);
     top: 0
 }
 
 footer {
-    @include full_width_banner;
+    @extend .full_width_banner;
     border-width: 0;
     margin-top: -50px;
 }
