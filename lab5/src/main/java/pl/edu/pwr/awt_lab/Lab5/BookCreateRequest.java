@@ -1,23 +1,42 @@
 package pl.edu.pwr.awt_lab.Lab5;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+// its just a ViewModel so its easier to add books
 public class BookCreateRequest {
-    @Schema(description = "Title of the book", example = "Lalka", required = true)
     private String title;
-
-    @Schema(description = "Number of pages", example = "520", required = true)
     private int pages;
-
-    @Schema(description = "ID of the author", example = "1", required = true)
     private int authorId;
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public BookCreateRequest(String title, int pages, int authorId) {
+        this.title = title;
+        this.pages = pages;
+        this.authorId = authorId;
+    }
 
-    public int getPages() { return pages; }
-    public void setPages(int pages) { this.pages = pages; }
+    // Getters and Setters
+    public String getTitle() {
+        return title;
+    }
 
-    public int getAuthorId() { return authorId; }
-    public void setAuthorId(int authorId) { this.authorId = authorId; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
 }
