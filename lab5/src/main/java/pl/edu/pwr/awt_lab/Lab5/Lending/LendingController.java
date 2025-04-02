@@ -58,7 +58,7 @@ public class LendingController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book with ID " + book.getId() + " is not currently lent out.");
         }
 
-        lendingService.lentBook(id);
+        lendingService.retrieveBook(id);
 
         return ResponseEntity.ok("Book with ID " + book.getId() + " retrieved successfully.");
     }

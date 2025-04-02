@@ -22,7 +22,8 @@ public class LendingService implements ILendingService{
     @Override
     public void retrieveBook(int bookId) {
         Book book = booksService.getBook(bookId);
-        book.setLentOut(true);
+        book.setLentOut(false);
+        System.out.println(book);
         booksService.updateBook(bookId, book);
     }
 
