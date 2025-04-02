@@ -1,4 +1,4 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Book;
 import java.util.Collection;
 public interface IBooksService {
     public abstract Collection<Book> getBooks();

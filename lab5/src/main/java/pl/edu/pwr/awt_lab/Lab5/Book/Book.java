@@ -1,4 +1,6 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Book;
+
+import pl.edu.pwr.awt_lab.Lab5.Author.Author;
 
 public class Book {
     private int id;

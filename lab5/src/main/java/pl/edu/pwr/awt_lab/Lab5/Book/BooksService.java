@@ -1,9 +1,13 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Book;
 
 import org.springframework.stereotype.Service;
+
+import pl.edu.pwr.awt_lab.Lab5.Author.Author;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 @Service
 public class BooksService implements IBooksService {
     private static List<Book> booksRepo = new ArrayList<>();

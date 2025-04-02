@@ -1,19 +1,18 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Book;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
+import pl.edu.pwr.awt_lab.Lab5.Author.Author;
+import pl.edu.pwr.awt_lab.Lab5.Author.IAuthorService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/books")
@@ -49,8 +48,7 @@ public class BooksController {
             @ApiResponse(responseCode = "400", description = "Invalid request body")
     })
     @PostMapping
-    public ResponseEntity<Object> addBook(
-    BookCreateRequest request) {
+    public ResponseEntity<Object> addBook(BookCreateRequest request) {
         int authorId = request.getAuthorId();
         System.out.println("Hi" + authorId);
         Author author = authorService.getAuthor(authorId);
@@ -58,7 +56,12 @@ public class BooksController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Author with ID " + request.getAuthorId() + " not found.");
         }
 
-        Book book = new Book(booksService.getBooks().size() + 1, request.getTitle(), author, request.getPages());
+        int newId = booksService.getBooks().stream()
+                           .mapToInt(Book::getId)
+                           .max()
+                           .orElse(0) + 1;
+
+        Book book = new Book(newId, request.getTitle(), author, request.getPages());
         booksService.addBook(book);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Book added successfully.");

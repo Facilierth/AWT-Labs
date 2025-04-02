@@ -1,4 +1,4 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Author;
 
 public class Author {
     private int id;

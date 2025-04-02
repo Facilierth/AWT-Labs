@@ -1,4 +1,4 @@
-package pl.edu.pwr.awt_lab.Lab5;
+package pl.edu.pwr.awt_lab.Lab5.Author;
 
 import org.springframework.stereotype.Service;
 

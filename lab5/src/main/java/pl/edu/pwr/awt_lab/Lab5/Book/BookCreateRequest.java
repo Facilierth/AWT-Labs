@@ -1,7 +1,4 @@
-package pl.edu.pwr.awt_lab.Lab5;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
+package pl.edu.pwr.awt_lab.Lab5.Book;
 
 // its just a ViewModel so its easier to add books
 public class BookCreateRequest {
