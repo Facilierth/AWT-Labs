@@ -18,8 +18,8 @@ import pl.edu.pwr.awt_lab.Lab5.Book.IBooksService;
 @RequestMapping("/lending")
 public class LendingController {
     
-    @Autowired ILendingService lendingService;
-    @Autowired IBooksService booksService;
+    @Autowired private ILendingService lendingService;
+    @Autowired private IBooksService booksService;
 
     @Operation(summary = "Lent a book", description = "Changes lent status of an existing book by ID to true.")
     @ApiResponse(responseCode = "200", description = "Book lented successfully")
@@ -39,14 +39,14 @@ public class LendingController {
 
         lendingService.lentBook(id);
 
-        return ResponseEntity.ok("Book lented successfully.");
+        return ResponseEntity.ok("Book with ID " + book.getId() + " lented successfully.");
     }
 
     @Operation(summary = "Retrieve a book", description = "Changes lent status of an existing book by ID to false.")
     @ApiResponse(responseCode = "200", description = "Book retrieved successfully")
     @ApiResponse(responseCode = "404", description = "Book not found", content = @Content)
     @ApiResponse(responseCode = "400", description = "Invalid request body", content = @Content)
-    @PatchMapping("/{id}")
+    @PatchMapping("retrieve/{id}")
     public ResponseEntity<Object> retrieveBook(@PathVariable int id) {
 
         Book book = booksService.getBook(id);
@@ -60,7 +60,7 @@ public class LendingController {
 
         lendingService.lentBook(id);
 
-        return ResponseEntity.ok("Book retrieved successfully.");
+        return ResponseEntity.ok("Book with ID " + book.getId() + " retrieved successfully.");
     }
 
 }
