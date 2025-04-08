@@ -17,12 +17,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import pl.edu.pwr.awt_lab.Lab5.Book.IBooksService;
 
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
 
     @Autowired private IAuthorService authorService;
+    @Autowired private IBooksService booksService;
 
     @Operation(summary = "Get all authors", description = "Retrieves a list of all authors.")
     @ApiResponses(value = {
@@ -84,6 +86,7 @@ public class AuthorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteAuthor(@PathVariable int id) {
+        booksService.deleteBooksByAuthor(id);
         return authorService.deleteAuthor(id) ? ResponseEntity.ok("Author deleted.") : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found.");
     }
     

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class AuthorService implements IAuthorService {
+    
     private static List<Author> authorsRepo = new ArrayList<>();
 
     static {

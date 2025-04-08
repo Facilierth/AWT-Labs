@@ -45,4 +45,10 @@ public class BooksService implements IBooksService {
     public boolean deleteBook(int id) {
         return booksRepo.removeIf(book -> book.getId() == id);
     }
+
+    @Override
+    public void deleteBooksByAuthor(int authorId) {
+        booksRepo.removeIf(book -> book.getAuthor().getId() == authorId);
+    }
+
 }
