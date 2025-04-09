@@ -24,6 +24,10 @@
                     <td>
                         <button @click="$emit('edit:book', book)" class="update">Edit</button>
                         <button @click="$emit('delete:book', book.id)" class="delete">Delete</button>
+                        <button @click="$emit('lend:book', book)" class="lend">
+                            <span v-if="book.lentOut">Return</span>
+                            <span v-else>Lend</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -94,5 +98,9 @@
 
     .delete {
         background-color: darkred;
+    }
+
+    .lend {
+        background-color: orange;
     }
 </style>

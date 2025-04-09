@@ -3,7 +3,7 @@
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Books</h2>
     <book-form :book-to-edit="bookToEdit" :authors="authors" @addOrEdit:book="addOrUpdateBook" />
-    <books-table :books-source="books" @delete:book="deleteBook" @edit:book="editBook" />
+    <books-table :books-source="books" @delete:book="deleteBook" @edit:book="editBook" @lend:book="lendBook"/>
   </MainLayout>
 </template>
 
@@ -82,6 +82,23 @@ export default {
         this.alert(msg, 'danger');
       });
       this.cancelEdit();
+    },
+
+    async lendBook(book) {
+      const id = book.id;
+      const url = book.lentOut ? `http://localhost:8080/lending/retrieve/${id}` : `http://localhost:8080/lending/${id}`; 
+      const successMessage = book.lentOut ? `Book with id:${id} was returned.` : `Book with id:${id} was lent out.`;
+      const failureMessage = book.lentOut ? `Book with id:${id} failed to be returned.` : `Book with id:${id} failed to be lent out.`;
+      try {
+        await axios.patch(url);
+        this.alert(successMessage, 'success');
+      } catch (err) {
+        console.error(err);
+        this.alert(failureMessage, 'danger');
+      } finally {
+        this.getBooks();
+      }
+
     },
 
     cancelEdit() {
