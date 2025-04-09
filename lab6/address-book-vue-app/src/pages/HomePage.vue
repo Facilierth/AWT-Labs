@@ -2,7 +2,7 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Books</h2>
-    <book-form :book-to-edit="bookToEdit" @addOrEdit:book="addOrUpdateBook" />
+    <book-form :book-to-edit="bookToEdit" :authors="authors" @addOrEdit:book="addOrUpdateBook" />
     <books-table :books-source="books" @delete:book="deleteBook" @edit:book="editBook" />
   </MainLayout>
 </template>
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       books: [],
+      authors: [],
       bookToEdit: null,
       message: '',
       messageType: ''
@@ -26,6 +27,8 @@ export default {
   },
   mounted() {
     this.getBooks();
+    this.getAuthors();
+    
   },
   methods: {
     async getBooks() {
@@ -36,7 +39,18 @@ export default {
         console.error(err);
       }
     },
+
+    async getAuthors() {
+      try {
+        const res = await axios.get('http://localhost:8080/authors');
+        this.authors = res.data;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     async deleteBook(id) {
+      console.log(this.authors);
       try {
         await axios.delete(`http://localhost:8080/books/${id}`);
         this.alert(`Book with id:${id} was deleted.`, 'danger');

@@ -11,7 +11,12 @@
     
             <div class="form-group">
                 <label for="authorId">Author Id:</label>
-                <input type="number" id="authorId" v-model="this.bookForm.authorId" required class="form-input" />
+                <select id="authorId" v-model="bookForm.authorId" required class="form-input">
+                    <option disabled value="">Please select an author</option>
+                    <option v-for="author in authors" :key="author.id" :value="author.id">
+                        {{ author.name }}
+                    </option>
+                </select>
             </div>
     
             <div class="form-group">
@@ -32,6 +37,7 @@
         name: 'book-form',
         props: {
             bookToEdit: Object,
+            authors: Array
         },
         data() {
             return {
@@ -60,7 +66,7 @@
                         this.bookForm = {
                             title: newVal.title,
                             pages: newVal.pages,
-                            authorId: newVal.author.id, // assuming it's an object
+                            authorId: newVal.author.id,
                         };
                     }
                 }
