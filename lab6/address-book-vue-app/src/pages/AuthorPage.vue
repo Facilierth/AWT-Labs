@@ -2,7 +2,7 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Authors</h2>
-    <author-form :editing-author-id="editingAuthorId" @addOrEdit:author="addOrUpdateAuthor" />
+    <author-form :author-to-edit="authorToEdit" @addOrEdit:author="addOrUpdateAuthor" />
     <author-table :authors-source="authors" @delete:author="deleteAuthor" @edit:author="editAuthor"/>
   </MainLayout>
 </template>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       authors: [],
-      editingAuthorId: null,
+      authorToEdit: null,
       message: '',
       messageType: ''
     }
@@ -46,8 +46,8 @@ export default {
       }
     },
 
-    async editAuthor(id){
-      this.editingAuthorId = id;
+    async editAuthor(author){
+      this.authorToEdit = author;
     },
 
     addOrUpdateAuthor(authorForm, editingAuthorId) {
@@ -70,7 +70,7 @@ export default {
       this.cancelEdit();
     },
     cancelEdit(){
-      this.editingAuthorId = null;
+      this.authorToEdit = null;
     },
     alert(message, type) {
       this.message = message;

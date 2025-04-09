@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
-    <h3 v-if="editingAuthorId !== null" class="form-header">
-      Editing author {{ this.editingAuthorId }}
+    <h3 v-if="authorToEdit !== null" class="form-header">
+      Editing author {{ this.authorToEdit.id }}
     </h3>
     <form @submit.prevent="addOrUpdateAuthor" class="author-form">
       <div class="form-group">
@@ -15,7 +15,7 @@
       </div>
 
       <button class="submit-button" type="submit">
-        {{ this.editingAuthorId !== null ? 'Update Author' : 'Add Author' }}
+        {{ this.authorToEdit !== null ? 'Update Author' : 'Add Author' }}
       </button>
     </form>
   </div>
@@ -26,7 +26,7 @@
 export default {
   name: 'author-form',
   props: {
-    editingAuthorId: Number,
+    authorToEdit: Object,
   },
   data() {
     return {
@@ -39,11 +39,24 @@ export default {
   methods: {
     addOrUpdateAuthor() {
       this.message = '';
-      this.$emit('addOrEdit:author', this.authorForm, this.editingAuthorId);
+      this.$emit('addOrEdit:author', this.authorForm, this.authorToEdit !== null ? this.authorToEdit.id : null);
 
       this.authorForm.name = '';
       this.authorForm.nationality = '';
     },
+  },
+  watch: {
+    authorToEdit: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.authorForm = {
+            name: newVal.name,
+            nationality: newVal.nationality,
+          };
+        }
+      }
+    }
   },
 }
 </script>
