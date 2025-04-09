@@ -2,7 +2,7 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Authors</h2>
-    <author-form :author-to-edit="authorToEdit" @addOrEdit:author="addOrUpdateAuthor" />
+    <author-form :author-to-edit="authorToEdit" @edit:author="editAuthor" @addOrEdit:author="addOrUpdateAuthor" />
     <author-table :authors-source="authors" @delete:author="deleteAuthor" @edit:author="editAuthor"/>
   </MainLayout>
 </template>

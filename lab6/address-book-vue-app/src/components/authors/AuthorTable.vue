@@ -15,7 +15,7 @@
         <td>{{author.name}}</td>
         <td>{{author.nationality}}</td>
         <td>
-          <button class="update">Edit</button>
+          <button @click="$emit('edit:author', author)" class="update">Edit</button>
           <button @click="$emit('delete:author', author.id)" class="delete">Delete</button>
         </td>
       </tr>

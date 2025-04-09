@@ -18,8 +18,8 @@
                     <td>{{book.author.name}}</td>
                     <td>{{book.pages}}</td>
                     <td>
-                        <span v-if="book.lentOut" style="color: red;">❌</span>
-                        <span v-else style="color: green;">✅</span>
+                        <span v-if="book.lentOut" style="color: red;" aria-label="not available">❌</span>
+                        <span v-else style="color: green;" aria-label="available">✅</span>
                     </td>
                     <td>
                         <button @click="$emit('edit:book', book)" class="update">Edit</button>

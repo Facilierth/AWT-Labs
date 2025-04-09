@@ -10,7 +10,7 @@
             </div>
     
             <div class="form-group">
-                <label for="authorId">Author Id:</label>
+                <label for="authorId">Author:</label>
                 <select id="authorId" v-model="bookForm.authorId" required class="form-input">
                     <option disabled value="">Please select an author</option>
                     <option v-for="author in authors" :key="author.id" :value="author.id">
