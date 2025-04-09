@@ -2,7 +2,8 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Authors</h2>
-    <author-table :authors-source="authors" @delete:author="deleteAuthor" />
+    <author-form :editing-author-id="editingAuthorId" @addOrEdit:author="addOrUpdateAuthor" />
+    <author-table :authors-source="authors" @delete:author="deleteAuthor" @edit:author="editAuthor"/>
   </MainLayout>
 </template>
 
@@ -10,13 +11,15 @@
 import MainLayout from '@/layouts/MainLayout.vue'
 import AuthorTable from "@/components/authors/AuthorTable.vue";
 import axios from 'axios'
+import AuthorForm from "@/components/authors/AuthorForm.vue";
 
 export default {
   name: 'AuthorPage',
-  components: { MainLayout, AuthorTable },
+  components: {MainLayout, AuthorTable, AuthorForm },
   data() {
     return {
       authors: [],
+      editingAuthorId: null,
       message: '',
       messageType: ''
     }
@@ -42,6 +45,11 @@ export default {
         console.error(err);
       }
     },
+
+    async editAuthor(id){
+      this.editingAuthorId = id;
+    },
+
     addOrUpdateAuthor(authorForm, editingAuthorId) {
       const request = editingAuthorId !== null
           ? axios.patch(`http://localhost:8080/authors/${editingAuthorId}`, authorForm)
@@ -59,6 +67,10 @@ export default {
             : `Author failed to be created.`;
         this.alert(msg, 'danger');
       });
+      this.cancelEdit();
+    },
+    cancelEdit(){
+      this.editingAuthorId = null;
     },
     alert(message, type) {
       this.message = message;
