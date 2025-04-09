@@ -52,6 +52,11 @@ public class BooksController {
     public ResponseEntity<Object> addBook(@RequestBody BookCreateRequest request) {
         int authorId = request.getAuthorId();
         System.out.println("Hi" + authorId);
+
+        if(request.getPages() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book not created. Pages has to bigger than 0."); 
+        }
+
         Author author = authorService.getAuthor(authorId);
         if (author == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Author with ID " + request.getAuthorId() + " not found.");
@@ -79,6 +84,10 @@ public class BooksController {
         Book existingBook = booksService.getBook(id);
         if (existingBook == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book with ID " + id + " not found.");
+        }
+
+        if(book.getPages() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book with ID " + book.getAuthorId() + " not updated. Pages has to bigger than 0."); 
         }
 
         Author author = authorService.getAuthor(book.getAuthorId());
