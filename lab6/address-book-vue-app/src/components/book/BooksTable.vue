@@ -22,7 +22,7 @@
                         <span v-else style="color: green;">✅</span>
                     </td>
                     <td>
-                        <button @click="$emit('edit:book', book.id)" class="update">Edit</button>
+                        <button @click="$emit('edit:book', book)" class="update">Edit</button>
                         <button @click="$emit('delete:book', book.id)" class="delete">Delete</button>
                     </td>
                 </tr>

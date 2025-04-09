@@ -1,7 +1,7 @@
 <template>
     <div class="form-container">
-        <h3 v-if="editingBookId !== null" class="form-header">
-            Editing book {{ this.editingBookId }}
+        <h3 v-if="bookToEdit !== null" class="form-header">
+            Editing book {{ this.bookToEdit.id }}
         </h3>    
         <form @submit.prevent="addOrUpdateBook" class="book-form">
             <div class="form-group">
@@ -20,7 +20,7 @@
             </div>
     
             <button class="submit-button" type="submit">
-                {{ this.editingBookId !== null ? 'Update Book' : 'Add Book' }}
+                {{ this.bookToEdit !== null ? 'Update Book' : 'Add Book' }}
             </button>
         </form>
     </div>
@@ -31,7 +31,7 @@
     export default {
         name: 'book-form',
         props: {
-            editingBookId: Number,
+            bookToEdit: Object,
         },
         data() {
             return {
@@ -45,13 +45,27 @@
         methods: {
             addOrUpdateBook() {
                 this.message = '';
-                this.$emit('addOrEdit:book', this.bookForm, this.editingBookId);
+                this.$emit('addOrEdit:book', this.bookForm, this.bookToEdit !== null ? this.bookToEdit.id : null);
 
                 this.bookForm.title = '';
                 this.bookForm.authorId = null;
                 this.bookForm.pages = null;
             },
         },
+        watch: {
+            bookToEdit: {
+                immediate: true,
+                handler(newVal) {
+                    if (newVal) {
+                        this.bookForm = {
+                            title: newVal.title,
+                            pages: newVal.pages,
+                            authorId: newVal.author.id, // assuming it's an object
+                        };
+                    }
+                }
+            }
+            },
     }
 </script>
 
