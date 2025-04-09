@@ -2,6 +2,10 @@
   <div>
     <header class="header">
       <h1>📚 Book Manager</h1>
+      <nav>
+        <router-link to="/">Home</router-link>
+        <router-link to="/authors">Authors</router-link>
+      </nav>
     </header>
     <main class="main">
       <slot />
