@@ -2,7 +2,7 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Books</h2>
-    <book-form :editing-book-id="editingBookId" @addOrEdit:book="addOrUpdateBook" />
+    <book-form :book-to-edit="bookToEdit" @addOrEdit:book="addOrUpdateBook" />
     <books-table :books-source="books" @delete:book="deleteBook" @edit:book="editBook" />
   </MainLayout>
 </template>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       books: [],
-      editingBookId: null,
+      bookToEdit: null,
       message: '',
       messageType: ''
     }
@@ -46,8 +46,8 @@ export default {
       }
     },
 
-    async editBook(id) {
-      this.editingBookId = id;
+    async editBook(book) {
+      this.bookToEdit = book;
     },
 
     addOrUpdateBook(bookForm, editingBookId) {
@@ -71,7 +71,7 @@ export default {
     },
 
     cancelEdit() {
-      this.editingBookId = null;
+      this.bookToEdit = null;
     },
 
     alert(message, type) {
