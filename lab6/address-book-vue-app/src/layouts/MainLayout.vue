@@ -10,6 +10,9 @@
     <main class="main">
       <slot />
     </main>
+    <FooterLayout>
+
+    </FooterLayout>
   </div>
 </template>
 
@@ -30,7 +33,6 @@
    -moz-osx-font-smoothing: grayscale;
    text-align: center;
    color: #2c3e50;
-   margin-top: 60px;
  }
 
 .alert {
@@ -61,4 +63,27 @@
   border-left: 5px solid greenyellow;
 }
 
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav a {
+  color: #bbb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active-link {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
 </style>
+<script setup>
+import FooterLayout from "@/layouts/FooterLayout.vue";
+</script>
