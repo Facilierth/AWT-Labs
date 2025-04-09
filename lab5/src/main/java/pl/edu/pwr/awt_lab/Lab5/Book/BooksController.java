@@ -9,11 +9,12 @@ import pl.edu.pwr.awt_lab.Lab5.Author.Author;
 import pl.edu.pwr.awt_lab.Lab5.Author.IAuthorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+@CrossOrigin(origins = "http://localhost:4000")
 @RestController
 @RequestMapping("/books")
 public class BooksController {
@@ -48,7 +49,7 @@ public class BooksController {
             @ApiResponse(responseCode = "400", description = "Invalid request body")
     })
     @PostMapping
-    public ResponseEntity<Object> addBook(BookCreateRequest request) {
+    public ResponseEntity<Object> addBook(@RequestBody BookCreateRequest request) {
         int authorId = request.getAuthorId();
         System.out.println("Hi" + authorId);
         Author author = authorService.getAuthor(authorId);

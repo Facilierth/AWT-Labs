@@ -3,6 +3,7 @@ package pl.edu.pwr.awt_lab.Lab5.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import pl.edu.pwr.awt_lab.Lab5.Book.IBooksService;
 
+@CrossOrigin(origins = "http://localhost:4000")
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {

@@ -3,6 +3,7 @@ package pl.edu.pwr.awt_lab.Lab5.Lending;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import pl.edu.pwr.awt_lab.Lab5.Book.Book;
 import pl.edu.pwr.awt_lab.Lab5.Book.IBooksService;
 
+@CrossOrigin(origins = "http://localhost:4000")
 @RestController
 @RequestMapping("/lending")
 public class LendingController {
