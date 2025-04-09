@@ -6,17 +6,17 @@
         <form @submit.prevent="addOrUpdateBook" class="book-form">
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" id="title" v-model="bookForm.title" required class="form-input" />
+                <input type="text" id="title" v-model="this.bookForm.title" required class="form-input" />
             </div>
     
             <div class="form-group">
                 <label for="authorId">Author Id:</label>
-                <input type="number" id="authorId" v-model="bookForm.authorId" required class="form-input" />
+                <input type="number" id="authorId" v-model="this.bookForm.authorId" required class="form-input" />
             </div>
     
             <div class="form-group">
                 <label for="pages">Pages:</label>
-                <input type="number" id="pages" v-model="bookForm.pages" required class="form-input" />
+                <input type="number" id="pages" v-model="this.bookForm.pages" required class="form-input" />
             </div>
     
             <button class="submit-button" type="submit">
@@ -31,41 +31,27 @@
     export default {
         name: 'book-form',
         props: {
-            id: Number,
+            editingBookId: Number,
         },
         data() {
             return {
                 bookForm: {
                     title: '',
-                    pages: 0,
-                    authorId: 0,
+                    pages: null,
+                    authorId: null,
                 },
-                editingBookId: null,
             }
         },
         methods: {
             addOrUpdateBook() {
-                if (this.invalidTitle || this.invalidAuthor || this.invalidPages) {
-                    return
-                } 
+                this.message = '';
                 this.$emit('addOrEdit:book', this.bookForm, this.editingBookId);
 
                 this.bookForm.title = '';
-                this.bookForm.author = '';
-                this.bookForm.pages = 0;
+                this.bookForm.authorId = null;
+                this.bookForm.pages = null;
             },
         },
-        computed: {
-            invalidTitle() {
-                return this.bookForm.title === '';
-            },
-            invalidAuthor() {
-                return this.bookForm.author === '';
-            },
-            invalidPages() {
-                return this.bookForm.pages <= 0;
-            }
-        }
     }
 </script>
 
