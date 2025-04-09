@@ -2,8 +2,8 @@
   <MainLayout>
     <div v-if="message" :class="['alert', messageType]">{{ message }}</div>
     <h2>Books</h2>
-    <book-form @addOrEdit:book="addOrUpdateBook" />
-    <books-table :books-source="books" @delete:book="deleteBook" />
+    <book-form :editing-book-id="editingBookId" @addOrEdit:book="addOrUpdateBook" />
+    <books-table :books-source="books" @delete:book="deleteBook" @edit:book="editBook" />
   </MainLayout>
 </template>
 
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       books: [],
+      editingBookId: null,
       message: '',
       messageType: ''
     }
@@ -44,6 +45,11 @@ export default {
         console.error(err);
       }
     },
+
+    async editBook(id) {
+      this.editingBookId = id;
+    },
+
     addOrUpdateBook(bookForm, editingBookId) {
       const request = editingBookId !== null
           ? axios.patch(`http://localhost:8080/books/${editingBookId}`, bookForm)
@@ -61,7 +67,13 @@ export default {
             : `Book failed to be created.`;
         this.alert(msg, 'danger');
       });
+      this.cancelEdit();
     },
+
+    cancelEdit() {
+      this.editingBookId = null;
+    },
+
     alert(message, type) {
       this.message = message;
       this.messageType = type;

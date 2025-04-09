@@ -31,7 +31,7 @@
     export default {
         name: 'book-form',
         props: {
-            id: Number,
+            editingBookId: Number,
         },
         data() {
             return {
@@ -40,8 +40,6 @@
                     pages: null,
                     authorId: null,
                 },
-                editingBookId: null,
-                message: '',
             }
         },
         methods: {
