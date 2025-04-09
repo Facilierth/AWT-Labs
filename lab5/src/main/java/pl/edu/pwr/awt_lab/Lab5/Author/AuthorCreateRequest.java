@@ -4,7 +4,7 @@ public class AuthorCreateRequest {
     private String name;
     private String nationality;
 
-    public AuthorCreateRequest( String name, String nationality) {
+    public AuthorCreateRequest(String name, String nationality) {
         this.name = name;
         this.nationality = nationality;
     }

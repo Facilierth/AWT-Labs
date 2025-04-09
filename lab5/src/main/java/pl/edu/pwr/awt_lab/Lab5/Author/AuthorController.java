@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import pl.edu.pwr.awt_lab.Lab5.Book.IBooksService;
@@ -54,8 +54,8 @@ public class AuthorController {
             @ApiResponse(responseCode = "400", description = "Invalid request body")
     })
     @PostMapping
-    public ResponseEntity<Object> addAuthor(AuthorCreateRequest request) {
-
+    public ResponseEntity<Object> addAuthor(@RequestBody AuthorCreateRequest request) {
+        String name = request.getName();
         int newId = authorService.getAuthors().stream()
                            .mapToInt(Author::getId)
                            .max()
