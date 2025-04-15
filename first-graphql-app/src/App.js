@@ -2,9 +2,9 @@ import { createServer } from 'node:http'
 import { createSchema, createYoga } from 'graphql-yoga'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import axios from 'axios'
 
 const typeDefs = readFileSync(join('src', 'schema.graphql'), 'utf-8')
-const axios = require("axios")
 
 const usersList = [
     { id: 1, name: "Jan Konieczny", email: "jan.konieczny@wonet.pl", login: "jkonieczny" },
@@ -26,9 +26,24 @@ function userById(parent, args, context, info){
     return usersList.find(u => u.id == args.id);
 }
 
+async function getRestUsersList(){
+    try {
+        const users = await axios.get("https://jsonplaceholder.typicode.com/users");
+        console.log(users);
+        return users.data.map(({ id, name, email, username }) => ({
+            id: id,
+            name: name,
+            email: email,
+            login: username,
+        }));
+    } catch (error) {
+        throw error
+    }
+} 
+
 const resolvers = {
     Query: {
-        users: () => usersList,
+        users: async () => getRestUsersList(),
         todos: () => todosList,
         todo: (parent, args, context, info) => todoById(parent, args, context, info),
         user: (parent, args, context, info) => userById(parent, args, context, info),
