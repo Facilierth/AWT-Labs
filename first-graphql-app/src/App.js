@@ -6,69 +6,45 @@ import axios from 'axios'
 
 const typeDefs = readFileSync(join('src', 'schema.graphql'), 'utf-8')
 
-const usersList = [];
-const todosList = [];
+import {
+    getAllUsers,
+    getUserById,
+    addUser,
+    updateUser,
+    deleteUser,
+    getAllTodos,
+    getTodoById,
+    addTodo,
+    updateTodo,
+    deleteTodo,
+    getTodosByUserId,
+    getUserByTodo
+} from './mutation_functions.js'
 
-async function userById(parent, args, context, info){
-    const users = await getRestUsersList();
-    return users.find(u => u.id == args.id);
-}
-
-async function getRestUsersList(){
-    try {
-        const users = await axios.get("https://jsonplaceholder.typicode.com/users");
-        console.log(users);
-        return users.data.map(({ id, name, email, username }) => ({
-            id: id,
-            name: name,
-            email: email,
-            login: username,
-        }));
-    } catch (error) {
-        throw error
-    }
-}
-
-async function getRestTodosList(){
-    try {
-        // pls work
-        const todos = await axios.get("https://jsonplaceholder.typicode.com/todos");
-        return todos.data.map(({ id, title, completed, userId }) => ({
-            id,
-            title,
-            completed,
-            user_id: userId
-        }));
-    } catch (error) {
-        throw error;
-    }
-}
-
-async function todoById(parent, args) {
-    const todos = await getRestTodosList();
-    return todos.find(t => t.id == args.id);
-}
-
-const resolvers = {
+export const resolvers = {
     Query: {
-        users: async () => getRestUsersList(),
-        todos: async () => getRestTodosList(),
-        todo: (parent, args) => todoById(parent, args),
-        user: (parent, args) => userById(parent, args),
+        users: () => getAllUsers(),
+        user: (_, { id }) => getUserById(id),
+        todos: () => getAllTodos(),
+        todo: (_, { id }) => getTodoById(id),
+    },
+    Mutation: {
+        addUser: (_, args) => addUser(args.name, args.email, args.login),
+        updateUser: (_, { id, ...data }) => updateUser(id, data),
+        deleteUser: (_, { id }) => deleteUser(id),
+
+        addTodo: (_, args) => addTodo(args.title, args.completed, args.userId),
+        updateTodo: (_, { id, ...data }) => updateTodo(id, data),
+        deleteTodo: (_, { id }) => deleteTodo(id),
     },
     User: {
-        todos: async (parent) => {
-            const todos = await getRestTodosList();
-            return todos.filter(t => t.user_id == parent.id);
-        }
+        todos: (parent) => getTodosByUserId(parent.id),
     },
     ToDoItem: {
-        user: async (parent) => {
-            const users = await getRestUsersList();
-            return users.find(u => u.id == parent.user_id);
-        }
+        user: (parent) => getUserByTodo(parent),
     }
 }
+
 
 const yoga = createYoga({
     schema: createSchema({

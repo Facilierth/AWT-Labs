@@ -18,3 +18,13 @@ type Query {
     users: [User!]
     user(id: ID!) : User
 }
+
+type Mutation {
+    addUser(name: String!, email: String!, login: String!): User!
+    updateUser(id: ID!, name: String, email: String, login: String): User
+    deleteUser(id: ID!): Boolean
+
+    addTodo(title: String!, completed: Boolean!, userId: ID): ToDoItem!
+    updateTodo(id: ID!, title: String, completed: Boolean, userId: ID): ToDoItem
+    deleteTodo(id: ID!): Boolean
+}
