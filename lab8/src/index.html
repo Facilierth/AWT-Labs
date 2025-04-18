@@ -17,7 +17,7 @@
       <h2 id="usernameHeader">Username</h3>
     
       <label for="nameInput">New username: </label>
-      <input id="imageInput" id="nameInput" type="text" onkeydown="setName(event)">
+      <input id="nameInput" type="text" onkeydown="setName(event)">
       <br>
       
       <button class="joinButton" onclick="joinRoom(1)">Join Room 1</button><br>
@@ -78,7 +78,7 @@
             <p class="message">${data.content}</p>
             </div>
           `;
-          document.getElementById('messagesContainer').scrollTo(0, document.body.scrollHeight);
+          document.getElementById('messagesContainer').scrollTo(0, document.getElementById('messagesContainer').scrollHeight);
           break;
         
         case 'image':
@@ -91,7 +91,7 @@
             <img src=${data.content} class="imageMessage">
             </div>
           `;
-          document.getElementById('messagesContainer').scrollTo(0, document.body.scrollHeight);
+          document.getElementById('messagesContainer').scrollTo(0, document.getElementById('messagesContainer').scrollHeight);
           break;
 
         case 'info':
