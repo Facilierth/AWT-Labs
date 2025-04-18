@@ -2,31 +2,127 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WebSocket Test</title>
+  <title>WebSocket Chat</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>WebSocket Client</h1>
-  <input id="messageInput" type="text" placeholder="Enter message">
-  <button onclick="sendMessage()">Send</button>
-  <div id="output"></div>
+  <header>
+    <h1 class="mainHeader">WebSocket Chat</h1>
+  </header>
+
+  <div class="mainContainer">
+    
+    <div class="controlPanel">
+
+      <h2 id="usernameHeader">Username</h3>
+    
+      <label for="nameInput">New username: </label>
+      <input id="nameInput" type="text" onkeydown="setName(event)">
+      <br>
+      
+      <button class="joinButton" onclick="joinRoom(1)">Join Room 1</button><br>
+      <button class="joinButton" onclick="joinRoom(2)">Join Room 2</button>
+    
+    </div>
+    
+    <div id="output">
+      <h2 id="roomInfo">Room not chosen</h3>
+
+      <div class="outputContainer">
+        <div id="messagesContainer"></div>
+        <div class="messageInputBar">
+          <input id="messageInput" type="text" placeholder="Enter message">
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    
+    </div>
+  </div>
 
   <script>
+
     const socket = new WebSocket('ws://localhost:8080');
-
-    socket.onopen = () => {
-      console.log('Connected to server');
-    };
-
+    let roomChosen = false
+ 
     socket.onmessage = event => {
+      const data = JSON.parse(event.data);
       const output = document.getElementById('output');
-      output.innerHTML += `<p>Server: ${event.data}</p>`;
+    
+      switch (String(data.type)) {
+        case 'nameSet':
+        case 'connected':
+          document.getElementById('usernameHeader').innerHTML = data.content;
+          break;
+    
+        case 'joinedRoom':
+          document.getElementById('roomInfo').innerHTML = `Room ${data.content}`;
+          document.getElementById('messagesContainer').innerHTML = '';
+          break;
+
+        case 'message':
+          const side = data.from === document.getElementById('usernameHeader').innerHTML ? 'right' : 'left';
+          
+          document.getElementById('messagesContainer').innerHTML += `
+            <div class="messageContainer ${side}">
+            <label class="usernameLabel">${data.from}</label>
+            <label class="timestamp">${data.timestamp}</label>
+            <p class="message">${data.content}</p>
+            </div>
+          `;
+          document.getElementById('messagesContainer').scrollTo(0, document.body.scrollHeight);
+          break;
+        
+        case 'info':
+          document.getElementById('messagesContainer').innerHTML += `
+            <p class="systemMessage">${data.content}</p>
+          `
+          break;
+
+      }
+
     };
 
-    function sendMessage() {
-      const input = document.getElementById('messageInput');
-      socket.send(input.value);
-      input.value = '';
-    }
+    
+  function setName(event) {
+    if (event.code !== 'Enter') 
+      return
+    
+    const usernameRegex = /^[a-z0-9A-Z_.]+$/;
+    const name = document.getElementById('nameInput').value;
+    
+    if(!usernameRegex.test(name) || name.length > 16)
+      return alert("Username can't be empty, can't be longer than 16 characters and can only contain letters, digits and underscores.")
+
+    socket.send(JSON.stringify({ type: 'setName',content: name }));
+  }
+
+  function joinRoom(roomId) {
+    roomChosen = true
+    socket.send(JSON.stringify({ type: 'joinRoom',content: roomId }));
+  }
+
+  function sendMessage() {
+    if (!roomChosen) 
+      return alert("Join a room first!");
+
+    const text = document.getElementById('messageInput').value;
+    const sanitizedText = escapeHTML(text)
+    
+    if (!sanitizedText)
+      return
+    
+    socket.send(JSON.stringify({ type: 'message', content: sanitizedText }));
+    document.getElementById('messageInput').value = '';
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+  }
+
   </script>
 </body>
 </html>
