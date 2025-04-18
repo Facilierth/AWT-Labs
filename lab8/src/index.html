@@ -17,7 +17,7 @@
       <h2 id="usernameHeader">Username</h3>
     
       <label for="nameInput">New username: </label>
-      <input id="nameInput" type="text" onkeydown="setName(event)">
+      <input id="imageInput" id="nameInput" type="text" onkeydown="setName(event)">
       <br>
       
       <button class="joinButton" onclick="joinRoom(1)">Join Room 1</button><br>
@@ -30,9 +30,18 @@
 
       <div class="outputContainer">
         <div id="messagesContainer"></div>
+        <div id="typingMessagesContainer">
+        </div>
         <div class="messageInputBar">
-          <input id="messageInput" type="text" placeholder="Enter message">
-          <button onclick="sendMessage()">Send</button>
+          <input 
+          id="messageInput" type="text" placeholder="Enter message" 
+          onkeydown="sendMessage(event)"
+          oninput="userTyping()"
+          >
+          <button onclick="sendMessage(undefined)" >Send</button>
+
+          <button onclick="document.getElementById('fileInput').click()" class="imageButton">Send Image</button>
+          <input type="file" id="fileInput" style="display: none" accept=".png,.jpg,.webp,.svg" onchange="sendPhoto(event)"/>
         </div>
       </div>
     
@@ -72,10 +81,38 @@
           document.getElementById('messagesContainer').scrollTo(0, document.body.scrollHeight);
           break;
         
+        case 'image':
+          const imageSide = data.from === document.getElementById('usernameHeader').innerHTML ? 'right' : 'left';
+          
+          document.getElementById('messagesContainer').innerHTML += `
+            <div class="messageContainer ${imageSide}">
+            <label class="usernameLabel">${data.from}</label>
+            <label class="timestamp">${data.timestamp}</label>
+            <img src=${data.content} class="imageMessage">
+            </div>
+          `;
+          document.getElementById('messagesContainer').scrollTo(0, document.body.scrollHeight);
+          break;
+
         case 'info':
           document.getElementById('messagesContainer').innerHTML += `
             <p class="systemMessage">${data.content}</p>
           `
+          break;
+
+        case 'typing':
+          if (data.from === document.getElementById('usernameHeader').innerHTML)
+            return;
+
+          const typingMessage = document.getElementById(`typing_${data.id}`);
+          if(typingMessage)
+            typingMessage.remove();
+
+          if (data.content) {
+            document.getElementById('typingMessagesContainer').innerHTML += `
+              <p class="typingMessage" id="typing_${data.id}"><strong>${data.from}</strong> is typing...</p>
+            `;
+          }
           break;
 
       }
@@ -101,7 +138,10 @@
     socket.send(JSON.stringify({ type: 'joinRoom',content: roomId }));
   }
 
-  function sendMessage() {
+  function sendMessage(event) {
+    console.log(event);
+    if(event !== undefined && event.code !== 'Enter')
+      return;
     if (!roomChosen) 
       return alert("Join a room first!");
 
@@ -121,6 +161,55 @@
               .replace(/>/g, "&gt;")
               .replace(/"/g, "&quot;")
               .replace(/'/g, "&#039;");
+  }
+
+  function sendPhoto(event) {
+    const file = event.target.files[0];
+    if (!file || !roomChosen) {
+      alert("Join a room and select a valid image!");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const base64 = e.target.result;
+
+      socket.send(JSON.stringify({
+        type: 'image',
+        content: base64,
+      }));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  let typingTimer;
+  const doneTypingCountdown = 1000;
+  
+  function userTyping() {
+    onStartTyping();
+
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(onStopTyping, doneTypingCountdown);
+  }
+
+  function onStartTyping() {
+    if(!roomChosen)
+      return;
+
+    socket.send(JSON.stringify({
+      type: 'typing',
+      content: true,
+    }));
+  }
+
+  function onStopTyping() {
+    if(!roomChosen)
+      return;
+
+    socket.send(JSON.stringify({
+      type: 'typing',
+      content: false,
+    }));
   }
 
   </script>

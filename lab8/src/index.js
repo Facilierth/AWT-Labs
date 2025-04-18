@@ -31,7 +31,7 @@ wsServer.on('connection', ws => {
     const client = clients.get(ws);
     switch(String(data.type)) {
 
-      case "setName":
+      case 'setName':
         const oldName = client.name;
         client.name = data.content;
         ws.send(JSON.stringify({ type: 'nameSet', content: client.name }));
@@ -41,7 +41,7 @@ wsServer.on('connection', ws => {
         });
         break;
 
-      case "joinRoom":
+      case 'joinRoom':
         const room = data.content;
         if(client.room === room)
           return;
@@ -69,16 +69,31 @@ wsServer.on('connection', ws => {
         });
         
         break;
+
       
-      case "message":
+      case 'image':
+      case 'message':
         if (!client.room) 
           return;
         broadcast(client.room, {
-          type: 'message',
+          type: String(data.type),
           from: client.name,
           timestamp: getFormattedTimestamp(),
           content: data.content,
         });
+        break;
+
+      case 'typing':
+        if (!client.room) 
+          return;
+
+        broadcast(client.room, {
+          type: 'typing',
+          from: client.name,
+          content: data.content,
+          id: client.id
+        });
+
         break;
         
     }  
