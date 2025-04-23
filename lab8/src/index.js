@@ -3,7 +3,6 @@ const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const { timeStamp } = require('console');
 
 const app = express();
 const server = http.createServer(app);
@@ -166,6 +165,6 @@ function getFormattedTimestamp() {
 
 
 const PORT = 8080;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`HTTP server running at http://localhost:${PORT}`);
 });
