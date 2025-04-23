@@ -24,7 +24,7 @@ wsServer.on('connection', ws => {
   console.log(startingUsername + ' connected');
   clients.set(ws, { id: userId, name: startingUsername, room: null });
 
-  ws.send(JSON.stringify({ type: 'connected', content: startingUsername }));
+  ws.send(JSON.stringify({ type: 'connected', content: startingUsername, id: userId }));
 
   ws.on('message', message => {
     const data = JSON.parse(message);
@@ -32,6 +32,17 @@ wsServer.on('connection', ws => {
     switch(String(data.type)) {
 
       case 'setName':
+        // if the client is in room check if there is another client with name
+        // that client is trying to change into
+        if (client.room !== null) {
+          for (const [_, iClient] of clients.entries()) {
+            if (iClient.name === data.content && iClient.room === client.room) {
+              ws.send(JSON.stringify({ type: 'nameSetError', content: "In the room you're in there is already a client with this name." }));
+              return;
+            }
+          }
+        }
+
         const oldName = client.name;
         client.name = data.content;
         ws.send(JSON.stringify({ type: 'nameSet', content: client.name }));
@@ -42,6 +53,15 @@ wsServer.on('connection', ws => {
         break;
 
       case 'joinRoom':
+
+        // check if there already is any client with the name of client that is trying to join
+        for (const [_, iClient] of clients.entries()) {
+          if (iClient.name === client.name && iClient.room === data.content) {
+            ws.send(JSON.stringify({ type: 'nameSetError', content: "In the room you're trying to join there is already a client with this name." }));
+            return;
+          }
+        } 
+
         const room = data.content;
         if(client.room === room)
           return;
@@ -80,6 +100,7 @@ wsServer.on('connection', ws => {
           from: client.name,
           timestamp: getFormattedTimestamp(),
           content: data.content,
+          id: client.id
         });
         break;
 

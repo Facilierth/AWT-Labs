@@ -51,15 +51,17 @@
   <script>
 
     const socket = new WebSocket('ws://localhost:8080');
-    let roomChosen = false
- 
+    let roomChosen = false;
+    var uuid = null
     socket.onmessage = event => {
       const data = JSON.parse(event.data);
       const output = document.getElementById('output');
     
       switch (String(data.type)) {
-        case 'nameSet':
         case 'connected':
+          uuid = data.id
+        
+        case 'nameSet':
           document.getElementById('usernameHeader').innerHTML = data.content;
           break;
     
@@ -69,7 +71,7 @@
           break;
 
         case 'message':
-          const side = data.from === document.getElementById('usernameHeader').innerHTML ? 'right' : 'left';
+          const side = data.id === uuid ? 'right' : 'left';
           
           document.getElementById('messagesContainer').innerHTML += `
             <div class="messageContainer ${side}">
@@ -82,7 +84,7 @@
           break;
         
         case 'image':
-          const imageSide = data.from === document.getElementById('usernameHeader').innerHTML ? 'right' : 'left';
+          const imageSide = data.id === uuid ? 'right' : 'left';
           
           document.getElementById('messagesContainer').innerHTML += `
             <div class="messageContainer ${imageSide}">
@@ -114,6 +116,11 @@
             `;
           }
           break;
+
+          case "nameSetError":data
+            document.getElementById('nameInput').value = "";
+            alert(data.content);
+            break;
 
       }
 
@@ -215,4 +222,3 @@
   </script>
 </body>
 </html>
-
